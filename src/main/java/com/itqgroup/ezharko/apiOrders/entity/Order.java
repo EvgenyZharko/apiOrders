@@ -23,10 +23,19 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<ProductsInOrder> products;
 
+
     public Order(Long id, Integer sumPrice, Date date) {
         this.id = id;
         this.priceSum = sumPrice;
         this.date = date;
+    }
+
+    public List<ProductsInOrder> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<ProductsInOrder> products) {
+        this.products = products;
     }
 
     public Order() {

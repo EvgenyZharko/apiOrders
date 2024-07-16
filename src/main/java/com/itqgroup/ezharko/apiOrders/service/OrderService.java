@@ -2,12 +2,14 @@ package com.itqgroup.ezharko.apiOrders.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itqgroup.ezharko.apiOrders.entity.Order;
+import com.itqgroup.ezharko.apiOrders.entity.ProductsInOrder;
 import com.itqgroup.ezharko.apiOrders.model.OrderNumber;
 import com.itqgroup.ezharko.apiOrders.repository.OrderRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,6 +42,25 @@ public class OrderService {
             List<Order> orders = session.createQuery("select o from Order o").getResultList();
             session.getTransaction().commit();
             return orders;
+        }
+    }
+
+    public List<ProductsInOrder> getProductInOrder(Long id) {
+        SessionFactory factory = new Configuration()
+                .configure("hibernate.cfg.xml")
+                .buildSessionFactory();
+        Order order = null;
+        List<ProductsInOrder> productsInOrders = null;
+
+        try (Session session = factory.getCurrentSession()) {
+            session.beginTransaction();
+            order = session.get(Order.class, id);
+
+            productsInOrders = order.getProducts();
+            System.out.println(productsInOrders);
+            session.getTransaction().commit();
+
+            return productsInOrders;
         }
     }
 

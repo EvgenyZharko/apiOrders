@@ -55,11 +55,21 @@ public class ProductsInOrder {
         this.count = count;
     }
 
-    public Order getOrder() {
+   /* public Order getOrder() {
         return order;
-    }
+    }*/
 
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductsInOrder{" +
+                "id=" + id +
+                ", productName='" + productName + '\'' +
+                ", count=" + count +
+                ", order=" + order +
+                '}';
     }
 }

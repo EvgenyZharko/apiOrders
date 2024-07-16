@@ -1,6 +1,7 @@
 package com.itqgroup.ezharko.apiOrders.controller;
 
 import com.itqgroup.ezharko.apiOrders.entity.Order;
+import com.itqgroup.ezharko.apiOrders.entity.ProductsInOrder;
 import com.itqgroup.ezharko.apiOrders.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,6 +36,15 @@ public class OrderController {
     @GetMapping("orders/create")
     public void createOrder(@RequestParam Integer priceSum) {
         orderService.createOrder(priceSum);
+    }
+
+    @Operation(
+            summary = "Метод, получающий на вход id заказа, возвращает список продуктов",
+            description = "Получает на вход id заказа, делает запрос к бд, возвращает список продуктов"
+    )
+    @GetMapping("orders/products_in_order")
+    public List<ProductsInOrder> getProductInOrder(@RequestParam Long id) {
+        return orderService.getProductInOrder(id);
     }
 
     @Operation(
